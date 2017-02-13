@@ -1,1 +1,1 @@
-# imagecompressor
+My attempt to make a "magic" image compression algorithem. 
