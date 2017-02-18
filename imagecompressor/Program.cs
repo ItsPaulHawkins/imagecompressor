@@ -10,48 +10,75 @@ namespace imagecompressor
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Please upload an image, and we'll compress it for you!");
-            Console.WriteLine("Type the path of the image you want to compress");
-            string path = Console.ReadLine();
-            byte[] imageArray = System.IO.File.ReadAllBytes(@path);
-            string image = Convert.ToBase64String(imageArray);
-
-            int length = image.Length;
-            Console.WriteLine(length);
-            Console.ReadLine();
-            int count = 1;
-            int secondnumber = 2;
-            int thirdnumber = 3;
-            string compressed = "";
-            while(count != length)
+            Console.WriteLine("Would you like to compress or decompress a file?");
+            string instruction = Console.ReadLine();
+            if (instruction == "compress" || instruction == "Compress")
             {
-                if (image[count] == image[secondnumber] && image[count] == image[thirdnumber])
+                Console.WriteLine("Please upload an image, and we'll compress it for you!");
+                Console.WriteLine("Type the path of the image you want to compress");
+                string path = Console.ReadLine();
+                Console.WriteLine("Type the export path");
+                string export = Console.ReadLine();
+                byte[] imageArray = System.IO.File.ReadAllBytes(@path);
+                string image = Convert.ToBase64String(imageArray);
+                int length = image.Length;
+                Console.WriteLine(length);
+                Console.ReadLine();
+                int count = 0;
+                int secondnumber = 1;
+                int thirdnumber = 2;
+                string compressed = "";
+                while (thirdnumber != length)
                 {
-                    compressed += image[count] + "&";
-                    if (count != length)
+                    if (image[count] == image[secondnumber] && image[count] == image[thirdnumber])
                     {
-                        count++;
+                        compressed += image[count] + "&";
+                        if (count != length)
+                        {
+                            count += 3;
+                        }
+                        if (secondnumber != length)
+                        {
+                            secondnumber += 2;
+                        }
+                        if (thirdnumber != length)
+                        {
+                            thirdnumber += 3;
+                        }
+
                     }
-                    if (secondnumber != length)
+                    else
                     {
-                        secondnumber++;
+                        compressed += image[count];
+                        if (count != length)
+                        {
+                            count++;
+                        }
+                        if (secondnumber != length)
+                        {
+                            secondnumber++;
+                        }
+                        if (thirdnumber != length)
+                        {
+                            thirdnumber++;
+
+                        }
+
                     }
-                    if(thirdnumber != length)
-                    {
-                        thirdnumber++;
-                    }
-                    
-                }else
-                {
-                    compressed += image[count];
-                    count++;
-                    secondnumber++;
-                    thirdnumber++;
                 }
+                System.IO.File.WriteAllText(@export, compressed);
+
             }
-            Console.WriteLine(compressed.Length);
-            Console.ReadLine();
+            else
+            {
+                Console.WriteLine("Please type the path of the compressed image");
+                string compressedpath = Console.ReadLine();
+                string compressedfile = System.IO.File.ReadAllText(@compressedpath);
+                int compressedlength = compressedfile.Length;
+
+            }
         }
+
     }
 
 }
