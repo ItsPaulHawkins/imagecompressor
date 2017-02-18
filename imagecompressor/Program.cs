@@ -14,8 +14,7 @@ namespace imagecompressor
             Console.WriteLine("Type the path of the image you want to compress");
             string path = Console.ReadLine();
             byte[] imageArray = System.IO.File.ReadAllBytes(@path);
-            //string image = Convert.ToBase64String(imageArray);
-            string image = "AAAABBBBCC";
+            string image = Convert.ToBase64String(imageArray);
 
             int length = image.Length;
             Console.WriteLine(length);
@@ -29,9 +28,19 @@ namespace imagecompressor
                 if (image[count] == image[secondnumber] && image[count] == image[thirdnumber])
                 {
                     compressed += image[count] + "&";
-                    count++;
-                    secondnumber++;
-                    thirdnumber++;
+                    if (count != length)
+                    {
+                        count++;
+                    }
+                    if (secondnumber != length)
+                    {
+                        secondnumber++;
+                    }
+                    if(thirdnumber != length)
+                    {
+                        thirdnumber++;
+                    }
+                    
                 }else
                 {
                     compressed += image[count];
