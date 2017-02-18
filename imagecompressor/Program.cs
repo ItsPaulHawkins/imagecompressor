@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//& for triplits
+//
 
 namespace imagecompressor
 {
@@ -17,9 +19,14 @@ namespace imagecompressor
                 string path = Console.ReadLine();
                 byte[] imageArray = System.IO.File.ReadAllBytes(@path);
                 string image = Convert.ToBase64String(imageArray);
-                string compresseddouble;
-                string compressedtripple;
-                string compressedquadruple; //randomly check for quadruple redundencys
+                int letter = 0;
+                int comparison = 1
+                int length = image.Length;
+                bool compressed = false;
+                while(compressed == false)
+                {
+                    image[letter]
+                }
 
             }
             else
