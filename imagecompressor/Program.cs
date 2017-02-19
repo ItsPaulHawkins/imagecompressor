@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ namespace imagecompressor
                 int compfour = 7;
                 int backchars = compone - one;
                 string finalcompressed = image;
+                File.WriteAllText(@"c:/users/pablo/desktop/file.txt", finalcompressed.ToString());
                 while (one != length)
                 {
 
@@ -41,13 +43,16 @@ namespace imagecompressor
 
                         if (image[one] + image[two] + image[three] + image[four] == image[compone] + image[comptwo] + image[compthree] + image[compfour])
                         {
+                            string filecompressed = System.IO.File.ReadAllText(@"C:/users/pablo/desktop/file.txt");
                             var aStringBuilder = new StringBuilder(finalcompressed);
                             aStringBuilder.Remove(compone, 4);
                             aStringBuilder.Insert(compone, "&" + backchars);
                             aStringBuilder.AppendLine(finalcompressed);
                             finalcompressed = aStringBuilder.ToString();
-                            Console.ReadLine();
-                            
+                            File.WriteAllText(@"c:/users/pablo/desktop/file.txt", finalcompressed.ToString());
+                            finalcompressed = "";
+
+
 
 
                             Console.WriteLine("found");
@@ -84,6 +89,7 @@ namespace imagecompressor
 
                     }else
                     {
+                        string filecompressed = System.IO.File.ReadAllText(@"C:/users/pablo/desktop/file.txt");
                         Console.WriteLine("yeet" + finalcompressed.Length);
                     }
                 }
