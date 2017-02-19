@@ -31,37 +31,65 @@ namespace imagecompressor
                 int compthree = 6;
                 int compfour = 7;
                 int backchars = compone - one;
-                string finalcompressed = "";
-                while(one != length)
+                string finalcompressed = image;
+                while (one != length)
                 {
-                   
-                    if (image[one] + image[two] + image[three] + image[four] == image[compone] + image[comptwo] + image[compthree] + image[compfour] && image[compone] < length && image[comptwo] < length && image[compthree] < length && image[compfour] < length )
+
+                    if (one < length - 6)
                     {
-                        finalcompressed += "&" + backchars;
-                        compone += 4;
-                        comptwo += 3;
-                        compthree += 2;
-                        compfour += 1;
+
+
+                        if (image[one] + image[two] + image[three] + image[four] == image[compone] + image[comptwo] + image[compthree] + image[compfour])
+                        {
+                            var aStringBuilder = new StringBuilder(finalcompressed);
+                            aStringBuilder.Remove(compone, 4);
+                            aStringBuilder.Insert(compone, "&" + backchars);
+                            aStringBuilder.AppendLine(finalcompressed);
+                            finalcompressed = aStringBuilder.ToString();
+                            Console.ReadLine();
+                            
+
+
+                            Console.WriteLine("found");
+                            compone += 4;
+                            comptwo += 3;
+                            compthree += 2;
+                            compfour += 1;
+
+                        }
+                        else
+                        {
+                  
+                            compone += 4;
+                            comptwo += 3;
+                            compthree += 2;
+                            compfour += 1;
+                            if (compone >= length - 6)
+                            {
+                                one += 4;
+                                two += 3;
+                                three += 2;
+                                four += 1;
+                                compone = one + 4;
+                                comptwo = one + 3;
+                                compthree = one + 2;
+                                compfour = one + 1;
+
+
+
+                            }
+
+                        }
+                        Console.WriteLine(one);
+
                     }else
                     {
-                        finalcompressed += image[compone] + image[comptwo] + image[compthree] + image[compfour];
-                        compone += 4;
-                        comptwo += 3;
-                        compthree += 2;
-                        compfour += 1;
-                        if (compone <= length - 6)
-                        {
-                            compone = one + 4;
-                            comptwo = one + 3;
-                            compthree = one + 2;
-                            compfour = one + 1;
-                                
-                        }
+                        Console.WriteLine("yeet" + finalcompressed.Length);
                     }
-                    
                 }
                 Console.WriteLine(finalcompressed.Length);
                 Console.ReadLine();
+                
 
 
 
