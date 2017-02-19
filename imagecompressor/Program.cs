@@ -20,13 +20,22 @@ namespace imagecompressor
                 byte[] imageArray = System.IO.File.ReadAllBytes(@path);
                 string image = Convert.ToBase64String(imageArray);
                 int letter = 0;
-                int comparison = 1
+                int comparison = 1;
+                int two = 2;
+                int three = 3;
                 int length = image.Length;
-                bool compressed = false;
-                while(compressed == false)
+                string compressed;
+                bool iscompressed = false;
+                while(iscompressed == false)
                 {
-                    image[letter]
+                    string firsttwo = "" + image[comparison] + image[letter];
+                    string secondtwo = "" + image[two] + image[three];
+                    if (firsttwo == secondtwo)
+                    {
+
+                    }
                 }
+                
 
             }
             else
