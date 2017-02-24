@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 
 namespace imagecompressor
@@ -12,6 +13,7 @@ namespace imagecompressor
     {
         static void Main(string[] args)
         {
+            Stopwatch timer = new Stopwatch();
             Console.WriteLine("Type the path of the image you want to compress");
             string path = Console.ReadLine();
             byte[] imageArray = System.IO.File.ReadAllBytes(@path);
@@ -27,19 +29,22 @@ namespace imagecompressor
             int comptwo = 5;
             int compthree = 6;
             int compfour = 7;
+            int redundencys = 0;
             string finalcompressed = image;
             StringBuilder sb = new StringBuilder(finalcompressed);
             sb.ToString();
             int count = 0;
             Random rnd = new Random();
+            timer.Start();
             while (one < length - 6)
             {
                 int rnum = rnd.Next(1, 5);
+                int back = compone - one;
                 if (compone < length - 6 && compone < length - 6 - count)
                 {
-                    if(sb[one] + sb[two] + sb[three] + sb[four] == sb[compone] + sb[comptwo] + sb[compthree] + sb[compfour])
+                    if(sb[one] + sb[two] + sb[three] + sb[four] == sb[compone] + sb[comptwo] + sb[compthree] + sb[compfour] && back < 100)
                     {
-                        int back = compone - one;
+                        
                         Console.WriteLine("found!");
                         sb.Remove(compone, 4);
                         sb.Insert(compone, "&" + back);
@@ -50,6 +55,7 @@ namespace imagecompressor
                         compthree += 2;
                         compfour += 2;
                         count += 2;
+                        redundencys++;
                     }
                     else
                     {
@@ -60,7 +66,19 @@ namespace imagecompressor
                     }
                 }else
                 {
-                    
+
+                    if(one == 100)
+                    {
+                        timer.Stop();
+                        double seconds = timer.Elapsed.TotalSeconds;
+                        int intseconds = (int)seconds;
+                        int multiplythis = sb.Length / 100;
+                        int lengthmultiply = multiplythis * intseconds;
+                        int estimatedTime = lengthmultiply / 60;
+                        Console.WriteLine("Estimated time remaining (in minutes): " + estimatedTime);
+                        Console.ReadLine();
+                        
+                    }
                     one++;
                     two++;
                     three++;
@@ -69,11 +87,14 @@ namespace imagecompressor
                     comptwo = two + 4;
                     compthree = three + 4;
                     compfour = four + 4;
+                    Console.WriteLine(one + " / " + sb.Length);
                 }
             }
             
-            Console.WriteLine("Your original length is: " + image.Length + "Now, it's " + sb.Length);
+            Console.WriteLine("Your original length is: " + image.Length + "Now, it's " + sb.Length + " Redundencys found: " + redundencys);
             Console.ReadLine();
+            System.IO.File.WriteAllText(@"C:/users/paulpc/desktop/file.txt", sb.ToString());
+
 
 
         }
