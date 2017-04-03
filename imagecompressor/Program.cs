@@ -15,6 +15,7 @@ namespace imagecompressor
         {
             Stopwatch timer = new Stopwatch();
             Console.WriteLine("Type the path of the image you want to compress");
+			Console.WriteLine("File will be exported to a .txt");
             string path = Console.ReadLine();
             byte[] imageArray = System.IO.File.ReadAllBytes(@path);
             string image = Convert.ToBase64String(imageArray); //creates string named image that holds the base64 string
